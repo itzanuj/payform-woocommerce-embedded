@@ -1,0 +1,53 @@
+#payment #bambora-payform-embedded-card-payment-content {
+  position: relative;
+  clear: both;
+  overflow: auto;
+  margin: 0 0 10px 0;
+  width: 100%;
+}
+
+#payment #bambora-payform-embedded-card-payment-content:after {
+  content: ' ';
+  clear: both;
+}
+
+ul.payment_methods li.payment_method_bambora_payform_embedded_card p {
+  clear: both;
+}
+
+#payment #bambora-payform-embedded-card-payment-content .bpfe-card-brand-row {
+  background-color: #fff;
+  border: 2px solid #eee;
+  border-radius: 2px;
+  text-align: center;
+}
+#payment #bambora-payform-embedded-card-payment-content .bpfe-card-brand-row:after {
+  content: ' ';
+  clear: both;
+}
+
+#payment #bambora-payform-embedded-card-payment-content .bpfe-card-brand-container {
+  max-width: 16.5%;
+  width: 73px;
+  height: 50px;
+  line-height: 46px;
+  text-align: center;
+  display: inline-block;
+}
+
+#payment #bambora-payform-embedded-card-payment-content .bpfe-card-brand-container img.bpfe-card-brand-logo.visa{
+	max-width: 100%;
+	max-height: 36px !important;
+	margin: 0 !important;
+}
+
+#payment #bambora-payform-embedded-card-payment-content .bpfe-card-brand-container img{
+	max-width: 100%;
+	max-height: 40px !important;
+	margin: 0 !important;
+	float: none !important;
+	vertical-align: middle !important;
+	display: inline;
+	position: static;
+}
+
