@@ -3,7 +3,7 @@
  * Plugin Name: Bambora PayForm Embedded Card Payment Gateway
  * Plugin URI: https://payform.bambora.com/docs
  * Description: Bambora PayForm Payment Gateway Embedded Card Integration for Woocommerce
- * Version: 1.2.0
+ * Version: 1.3.0
  * Author: Bambora
  * Author URI: https://www.bambora.com/fi/fi/Verkkokauppa/Payform/
  * Text Domain: bambora-payform-embedded-card-payment-gateway
@@ -89,9 +89,6 @@ function init_bambora_payform_embedded_card_gateway()
 			if(!$this->is_valid_currency() && $this->limit_currencies == 'yes')
 				$this->enabled = false;
 
-			if (!function_exists('curl_init'))
-				$this->enabled = false;
-
 			$this->logger = new WC_Logger();
 		}
 
@@ -99,9 +96,6 @@ function init_bambora_payform_embedded_card_gateway()
 		{
 			if($this->settings['enabled'] == 'no')
 				return;
-			// Show message if curl is not installed
-			if (!function_exists('curl_init'))
-				echo '<div class="error"><p>' . sprintf( __( 'PHP cURL is not installed, install cURL to use Bambora PayForm (Embedded Card) payment gateway.', 'bambora-payform-embedded-card-payment-gateway' ), admin_url( 'admin.php?page=wc-settings&tab=checkout' ) ) . '</p></div>';
 		}
 
 		public function is_valid_currency()
@@ -275,8 +269,10 @@ function init_bambora_payform_embedded_card_gateway()
 
 		public function process_payment($order_id)
 		{
-			if ($_POST['payment_method'] != 'bambora_payform_embedded_card')
+			if (sanitize_key($_POST['payment_method']) != 'bambora_payform_embedded_card')
 				return false;
+
+			require_once(plugin_dir_path( __FILE__ ).'includes/lib/bambora_payform_loader.php');
 
 			$order = new WC_Order($order_id);
 			$wc_order_id = $order->get_id();
@@ -284,8 +280,6 @@ function init_bambora_payform_embedded_card_gateway()
 
 			$order_number = (strlen($this->ordernumber_prefix)  > 0) ?  $this->ordernumber_prefix. '_'  .$order_id : $order_id;
 			$order_number .=  '-' . str_pad(time().rand(0,9999), 5, "1", STR_PAD_RIGHT);
-
-			include_once(plugin_dir_path( __FILE__ ).'includes/lib/bambora_payform_loader.php');
 
 			$redirect_url = $this->get_return_url($order);
 
@@ -299,7 +293,7 @@ function init_bambora_payform_embedded_card_gateway()
 
 			$lang = $this->get_lang();
 
-			$payment = new Bambora\PayForm($this->api_key, $this->private_key);
+			$payment = new Bambora\PayForm($this->api_key, $this->private_key, 'w3.1', new Bambora\PayFormWPConnector());
 
 			if($this->send_receipt == 'yes')
 				$receipt_mail = $wc_b_email;
@@ -346,8 +340,7 @@ function init_bambora_payform_embedded_card_gateway()
 			if(!$this->is_valid_currency() && $this->limit_currencies == 'no')
 			{
 				$available = false;
-				include(plugin_dir_path( __FILE__ ).'includes/lib/bambora_payform_loader.php');
-				$payment_methods = new Bambora\PayForm($this->api_key, $this->private_key);
+				$payment_methods = new Bambora\PayForm($this->api_key, $this->private_key, 'w3.1', new Bambora\PayFormWPConnector());
 				try
 				{
 					$response = $payment_methods->getMerchantPaymentMethods(get_woocommerce_currency());
@@ -455,16 +448,24 @@ function init_bambora_payform_embedded_card_gateway()
 			return null;
 		}
 
+		protected function sanitize_payform_order_number($order_number)
+		{
+			return preg_replace('/[^\-\p{L}\p{N}_\s@&\/\\()?!=+£$€.,;:*%]/', '', $order_number);
+		}
+
 		public function check_bambora_payform_embedded_card_response()
 		{
 			if(count($_GET))
 			{
-				$return_code = isset($_GET['RETURN_CODE']) ? $_GET['RETURN_CODE'] : -999;
-				$incident_id = isset($_GET['INCIDENT_ID']) ? $_GET['INCIDENT_ID'] : null;
-				$settled = isset($_GET['SETTLED']) ? $_GET['SETTLED'] : null;
-				$authcode = isset($_GET['AUTHCODE']) ? $_GET['AUTHCODE'] : null;
-				$contact_id = isset($_GET['CONTACT_ID']) ? $_GET['CONTACT_ID'] : null;
-				$order_number = isset($_GET['ORDER_NUMBER']) ? $_GET['ORDER_NUMBER'] : null;
+				require_once(plugin_dir_path( __FILE__ ).'includes/lib/bambora_payform_loader.php');
+				$return_code = isset($_GET['RETURN_CODE']) ? sanitize_text_field($_GET['RETURN_CODE']) : -999;
+				$incident_id = isset($_GET['INCIDENT_ID']) ? sanitize_text_field($_GET['INCIDENT_ID']) : null;
+				$settled = isset($_GET['SETTLED']) ? sanitize_text_field($_GET['SETTLED']) : null;
+				$authcode = isset($_GET['AUTHCODE']) ? sanitize_text_field($_GET['AUTHCODE']) : null;
+				$contact_id = isset($_GET['CONTACT_ID']) ? sanitize_text_field($_GET['CONTACT_ID']) : null;
+				$order_number = isset($_GET['ORDER_NUMBER']) ? $this->sanitize_payform_order_number($_GET['ORDER_NUMBER']) : null;
+
+				$this->logger->add( 'bambora-payform-embedded-card-payment-gateway', 'Order number: ' . $order_number);
 
 				$authcode_confirm = $return_code .'|'. $order_number;
 
@@ -479,7 +480,7 @@ function init_bambora_payform_embedded_card_gateway()
 
 				$authcode_confirm = strtoupper(hash_hmac('sha256', $authcode_confirm, $this->private_key));
 
-				$order_id = isset($_GET['order_id']) ? $_GET['order_id'] : null;
+				$order_id = isset($_GET['order_id']) ? sanitize_text_field($_GET['order_id']) : null;
 				
 				if($order_id === null || $order_number === null)
 					die ("No order_id nor order_number given.");
@@ -505,8 +506,7 @@ function init_bambora_payform_embedded_card_gateway()
 						$order->update_meta_data('bambora_payform_embedded_card_return_code', $return_code);
 						$order->save();
 
-						include_once(plugin_dir_path( __FILE__ ).'includes/lib/bambora_payform_loader.php');
-						$payment = new Bambora\PayForm($this->api_key, $this->private_key);
+						$payment = new Bambora\PayForm($this->api_key, $this->private_key, 'w3.1', new Bambora\PayFormWPConnector());
 						try
 						{
 							$result = $payment->checkStatusWithOrderNumber($mk_on);
@@ -737,9 +737,9 @@ function init_bambora_payform_embedded_card_gateway()
 
 		public function bambora_payform_embedded_card_process_settlement($order_number, &$settlement_msg)
 		{
-			include(plugin_dir_path( __FILE__ ).'includes/lib/bambora_payform_loader.php');
 			$successful = false;
-			$payment = new Bambora\PayForm($this->api_key, $this->private_key);
+			require_once(plugin_dir_path( __FILE__ ).'includes/lib/bambora_payform_loader.php');
+			$payment = new Bambora\PayForm($this->api_key, $this->private_key, 'w3.1', new Bambora\PayFormWPConnector());
 			try
 			{
 				$settlement = $payment->settlePayment($order_number);
@@ -772,14 +772,13 @@ function init_bambora_payform_embedded_card_gateway()
 
 		public function scheduled_subscription_payment( $amount_to_charge, $order)
 		{
-			include_once(plugin_dir_path( __FILE__ ).'includes/lib/bambora_payform_loader.php');
-
+			require_once(plugin_dir_path( __FILE__ ).'includes/lib/bambora_payform_loader.php');
 			$subscriptions = wcs_get_subscriptions_for_renewal_order($order);
 			$subscription = end($subscriptions);
 
 			$card_token = get_post_meta(  $subscription->get_id(), 'bambora_payform_embedded_card_token', true );
 
-			$payment = new Bambora\PayForm($this->api_key, $this->private_key);
+			$payment = new Bambora\PayForm($this->api_key, $this->private_key, 'w3.1', new Bambora\PayFormWPConnector());
 
 			$order_number = (strlen($this->ordernumber_prefix)  > 0) ?  $this->ordernumber_prefix . '_' . $order->get_id() : $order->get_id();
 			$order_number .=  '-' . str_pad(time().rand(0,9999), 5, "1", STR_PAD_RIGHT);
@@ -879,8 +878,7 @@ function init_bambora_payform_embedded_card_gateway()
 
 		public function subscription_cancellation($subscription)
 		{
-			include_once(plugin_dir_path( __FILE__ ).'includes/lib/bambora_payform_loader.php');
-
+			require_once(plugin_dir_path( __FILE__ ).'includes/lib/bambora_payform_loader.php');
 			if($subscription->get_status() === 'cancelled')
 			{
 				$key = 'bambora_payform_embedded_card_token';
@@ -894,7 +892,7 @@ function init_bambora_payform_embedded_card_gateway()
 
 			$card_token = get_post_meta($subscription->get_id(), $key, true);
 
-			$payment = new Bambora\PayForm($this->api_key, $this->private_key);
+			$payment = new Bambora\PayForm($this->api_key, $this->private_key, 'w3.1', new Bambora\PayFormWPConnector());
 
 			try
 			{

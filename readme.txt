@@ -14,10 +14,8 @@ Bambora PayForm plugin for Woocommerce.
 
 This plugin uses the Bambora PayForm Payment API. 
 
-This is a plugin for integrating Bambora PayForm (EU) payment gateway with your Woocommerce -store. Supports Woocommerce Subscriptions -plugin for recurring payments. To accept payments with this plugin, you need to have an active contract with [Bambora](https://www.bambora.com/fi/fi/online/).
+This is a plugin for integrating Bambora PayForm (EU) payment gateway with your Woocommerce -store. Accept payments with this plugin, you need to have an active contract with [Bambora](https://www.bambora.com/fi/fi/maksuratkaisut/verkkokauppa/tuotteet/payform/).
 
-
-Notice: Plugin uses libcurl.
 
 == Installation ==
 -

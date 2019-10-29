@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bambora PayForm Embedded Card Payment Gateway\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-04 07:36+0000\n"
-"PO-Revision-Date: 2019-10-04 07:40+0000\n"
+"POT-Creation-Date: 2019-10-24 12:55+0000\n"
+"PO-Revision-Date: 2019-10-24 12:56+0000\n"
 "Last-Translator: Bambora PayForm <payform@bambora.com>\n"
 "Language-Team: Suomi\n"
 "Language: fi\n"
@@ -12,10 +12,10 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Loco https://localise.biz/\n"
-"X-Loco-Version: 2.3.0; wp-5.2.3"
+"X-Loco-Version: 2.3.0; wp-5.2.4"
 
 #: bambora-payform-embedded-card-payment-gateway.php:39
-#: bambora-payform-embedded-card-payment-gateway.php:131
+#: bambora-payform-embedded-card-payment-gateway.php:124
 msgid "Bambora PayForm (Embedded Card)"
 msgstr "Bambora PayForm (Upotettu korttimaksaminen)"
 
@@ -27,73 +27,65 @@ msgstr ""
 "Bambora PayForm (Upotettu korttimaksaminen) maksurajapinnan integraatio "
 "Woocommerceen"
 
-#: bambora-payform-embedded-card-payment-gateway.php:105
-msgid ""
-"PHP cURL is not installed, install cURL to use Bambora PayForm (Embedded "
-"Card) payment gateway."
-msgstr ""
-"PHP cURL ei ole käytössä. Asenna cURL käyttääksesi Bambora PayForm "
-"maksulisäosaa."
-
-#: bambora-payform-embedded-card-payment-gateway.php:117
+#: bambora-payform-embedded-card-payment-gateway.php:110
 msgid "General options"
 msgstr "Yleiset asetukset"
 
-#: bambora-payform-embedded-card-payment-gateway.php:122
+#: bambora-payform-embedded-card-payment-gateway.php:115
 msgid "Enable/Disable"
 msgstr "Ota käyttöön / Poista käytöstä"
 
-#: bambora-payform-embedded-card-payment-gateway.php:124
+#: bambora-payform-embedded-card-payment-gateway.php:117
 msgid "Enable Bambora PayForm (Embedded Card)"
 msgstr "Ota Bambora PayForm (Upotettu korttimaksaminen) käyttöön"
 
-#: bambora-payform-embedded-card-payment-gateway.php:128
+#: bambora-payform-embedded-card-payment-gateway.php:121
 msgid "Title"
 msgstr "Otsikko"
 
-#: bambora-payform-embedded-card-payment-gateway.php:130
+#: bambora-payform-embedded-card-payment-gateway.php:123
 msgid "This controls the title which the user sees during checkout."
 msgstr "Maksutavan kassasivulla näkyvä otsikko."
 
-#: bambora-payform-embedded-card-payment-gateway.php:134
+#: bambora-payform-embedded-card-payment-gateway.php:127
 msgid "Private key"
 msgstr "Yksityinen salausavain"
 
-#: bambora-payform-embedded-card-payment-gateway.php:136
+#: bambora-payform-embedded-card-payment-gateway.php:129
 msgid "Private key of the sub-merchant"
 msgstr "Alikauppiaan yksityinen salausavain"
 
-#: bambora-payform-embedded-card-payment-gateway.php:140
+#: bambora-payform-embedded-card-payment-gateway.php:133
 msgid "API key"
 msgstr "Rajapinta-avain"
 
-#: bambora-payform-embedded-card-payment-gateway.php:142
+#: bambora-payform-embedded-card-payment-gateway.php:135
 msgid "API key of the sub-merchant"
 msgstr "Alikauppiaan yksityinen rajapinta-avain"
 
-#: bambora-payform-embedded-card-payment-gateway.php:146
+#: bambora-payform-embedded-card-payment-gateway.php:139
 msgid "Order number prefix"
 msgstr "Tilausnumeron etuliite"
 
-#: bambora-payform-embedded-card-payment-gateway.php:148
+#: bambora-payform-embedded-card-payment-gateway.php:141
 msgid "Prefix to avoid order number duplication"
 msgstr ""
 "Etuliitteellä vältetään samanlaisten tilaustunnusten luonti, jos "
 "kauppiastunnus on käytössä useassa verkkokaupassa. (Valinnainen)"
 
-#: bambora-payform-embedded-card-payment-gateway.php:152
+#: bambora-payform-embedded-card-payment-gateway.php:145
 msgid "Send products"
 msgstr "Lähetä tuote-erittely"
 
-#: bambora-payform-embedded-card-payment-gateway.php:154
+#: bambora-payform-embedded-card-payment-gateway.php:147
 msgid "Send product breakdown to Bambora PayForm (Embedded Card)."
 msgstr "Lähetä tuote-erittely PayFormin maksurajapintaan."
 
-#: bambora-payform-embedded-card-payment-gateway.php:158
+#: bambora-payform-embedded-card-payment-gateway.php:151
 msgid "Send payment confirmation"
 msgstr "Maksuvahvistus"
 
-#: bambora-payform-embedded-card-payment-gateway.php:160
+#: bambora-payform-embedded-card-payment-gateway.php:153
 msgid ""
 "Send Bambora PayForm (Embedded Card)'s payment confirmation email to the "
 "customer's billing e-mail."
@@ -101,19 +93,19 @@ msgstr ""
 "Bambora PayForm lähettää asiakkaalle maksuvahvistuksen onnistuneesta "
 "maksutapahtumasta."
 
-#: bambora-payform-embedded-card-payment-gateway.php:164
+#: bambora-payform-embedded-card-payment-gateway.php:157
 msgid "Only allow payments in EUR"
 msgstr "Salli maksaminen vain euroilla"
 
-#: bambora-payform-embedded-card-payment-gateway.php:166
+#: bambora-payform-embedded-card-payment-gateway.php:159
 msgid "Enable this option if you want to allow payments only in EUR."
 msgstr "Ota asetus käyttöön jos haluat sallia maksaminen ainoastaan euroilla."
 
-#: bambora-payform-embedded-card-payment-gateway.php:170
+#: bambora-payform-embedded-card-payment-gateway.php:163
 msgid "Cancel Page"
 msgstr "Peruutetun maksun paluusivu"
 
-#: bambora-payform-embedded-card-payment-gateway.php:173
+#: bambora-payform-embedded-card-payment-gateway.php:166
 msgid ""
 "Choose the page where the customer is redirected after a canceled/failed "
 "payment."
@@ -121,7 +113,7 @@ msgstr ""
 "Valitse sivu jolle asiakas ohjataan epäonnistuneen tai keskeytyneen maksun "
 "jälkeen."
 
-#: bambora-payform-embedded-card-payment-gateway.php:174
+#: bambora-payform-embedded-card-payment-gateway.php:167
 msgid ""
 "Order Received: Shows the customer information about their order and a "
 "notice that the payment failed. Customer has an opportunity to try payment "
@@ -131,7 +123,7 @@ msgstr ""
 "ilmoituksen maksun epäonnistumisesta. Asiakas voi normaalisti yrittää "
 "maksamista uudelleen."
 
-#: bambora-payform-embedded-card-payment-gateway.php:175
+#: bambora-payform-embedded-card-payment-gateway.php:168
 msgid ""
 "Pay for Order: Returns user to a page where they can try to pay their unpaid "
 "order again. "
@@ -139,15 +131,15 @@ msgstr ""
 "Maksa Tilaus: Siirtää asiakkaan sivulle jossa hän voi yrittää uudelleen "
 "maksamattoman tilauksensa maksamista."
 
-#: bambora-payform-embedded-card-payment-gateway.php:176
+#: bambora-payform-embedded-card-payment-gateway.php:169
 msgid "Cart: Customer is redirected back to the shopping cart."
 msgstr "Ostoskori: Asiakas siirretään takaisin ostoskori-sivulle."
 
-#: bambora-payform-embedded-card-payment-gateway.php:177
+#: bambora-payform-embedded-card-payment-gateway.php:170
 msgid "Checkout: Customer is redirected back to the checkout."
 msgstr "Kassa: Asiakas siirretään takaisin verkkokaupan kassalle."
 
-#: bambora-payform-embedded-card-payment-gateway.php:178
+#: bambora-payform-embedded-card-payment-gateway.php:171
 msgid ""
 "(When using Cart or Checkout as the return page for failed orders, the "
 "customer's cart will not be emptied during checkout.)"
@@ -156,70 +148,70 @@ msgstr ""
 "sivua, niin asiakkaan ostoskoria ei tyhjennetä maksamaan siirtymisen "
 "yhteydessä )"
 
-#: bambora-payform-embedded-card-payment-gateway.php:181
+#: bambora-payform-embedded-card-payment-gateway.php:174
 msgid "Order Received"
 msgstr "Tilaus vastaanotettu"
 
-#: bambora-payform-embedded-card-payment-gateway.php:182
+#: bambora-payform-embedded-card-payment-gateway.php:175
 msgid "Pay for Order"
 msgstr "Maksa Tilaus"
 
-#: bambora-payform-embedded-card-payment-gateway.php:183
+#: bambora-payform-embedded-card-payment-gateway.php:176
 msgid "Cart"
 msgstr "Ostoskori"
 
-#: bambora-payform-embedded-card-payment-gateway.php:184
+#: bambora-payform-embedded-card-payment-gateway.php:177
 msgid "Checkout"
 msgstr "Kassa"
 
-#: bambora-payform-embedded-card-payment-gateway.php:188
+#: bambora-payform-embedded-card-payment-gateway.php:181
 msgid "Display card logos"
 msgstr "Näytä maksukorttien logot"
 
-#: bambora-payform-embedded-card-payment-gateway.php:193
+#: bambora-payform-embedded-card-payment-gateway.php:186
 msgid "Visa"
 msgstr "Visa"
 
-#: bambora-payform-embedded-card-payment-gateway.php:195
+#: bambora-payform-embedded-card-payment-gateway.php:188
 msgid "Display Visa and Verified by Visa logo below the form."
 msgstr "Näytä Visa ja Verified by Visa logo maksulomakkeen alapuolelle."
 
-#: bambora-payform-embedded-card-payment-gateway.php:199
+#: bambora-payform-embedded-card-payment-gateway.php:192
 msgid "Mastercard"
 msgstr "Mastercard"
 
-#: bambora-payform-embedded-card-payment-gateway.php:201
+#: bambora-payform-embedded-card-payment-gateway.php:194
 msgid "Display Mastercard and Mastercard SecureCode logo below the form."
 msgstr ""
 "Näytä Mastercard ja Mastercard SecureCode logo maksulomakkeen alapuolelle."
 
-#: bambora-payform-embedded-card-payment-gateway.php:205
+#: bambora-payform-embedded-card-payment-gateway.php:198
 msgid "American Express"
 msgstr "American Express"
 
-#: bambora-payform-embedded-card-payment-gateway.php:207
+#: bambora-payform-embedded-card-payment-gateway.php:200
 msgid "Display American Express logo below the form."
 msgstr "Näytä American Expressin logo maksulomakkeen alapuolelle."
 
-#: bambora-payform-embedded-card-payment-gateway.php:211
+#: bambora-payform-embedded-card-payment-gateway.php:204
 msgid "Diners Club"
 msgstr "Diners Club"
 
-#: bambora-payform-embedded-card-payment-gateway.php:213
+#: bambora-payform-embedded-card-payment-gateway.php:206
 msgid "Display Diners Club logo below the form."
 msgstr "Näytä Diners Clubin logo maksulomakkeen alapuolelle."
 
-#: bambora-payform-embedded-card-payment-gateway.php:232
+#: bambora-payform-embedded-card-payment-gateway.php:225
 msgid "Payment card"
 msgstr "Maksukortti"
 
-#: bambora-payform-embedded-card-payment-gateway.php:370
-#: bambora-payform-embedded-card-payment-gateway.php:371
-#: bambora-payform-embedded-card-payment-gateway.php:386
+#: bambora-payform-embedded-card-payment-gateway.php:362
+#: bambora-payform-embedded-card-payment-gateway.php:363
+#: bambora-payform-embedded-card-payment-gateway.php:378
 msgid "Bambora PayForm: No payment methods available for the currency: "
 msgstr "Bambora PayForm: Ei sallittuja maksutapoja valuutalle:"
 
-#: bambora-payform-embedded-card-payment-gateway.php:384
+#: bambora-payform-embedded-card-payment-gateway.php:376
 msgid ""
 "Bambora PayForm: \"Only allow payments in EUR\" is enabled and currency was "
 "not EUR for order: "
@@ -227,17 +219,17 @@ msgstr ""
 "Bambora PayForm: \"Salli maksaminen vain euroilla\"-asetus on käytössä ja "
 "valuutta ei ollut EUR tilauksessa:"
 
-#: bambora-payform-embedded-card-payment-gateway.php:397
-#: bambora-payform-embedded-card-payment-gateway.php:550
-#: bambora-payform-embedded-card-payment-gateway.php:552
+#: bambora-payform-embedded-card-payment-gateway.php:389
+#: bambora-payform-embedded-card-payment-gateway.php:549
+#: bambora-payform-embedded-card-payment-gateway.php:551
 msgid "Bambora PayForm (Embedded Card) order"
 msgstr "Bambora PayForm (Upotettu korttimaksaminen) tilaus"
 
-#: bambora-payform-embedded-card-payment-gateway.php:397
+#: bambora-payform-embedded-card-payment-gateway.php:389
 msgid "Payment pending. Waiting for result."
 msgstr "Maksaminen kesken. Odottaa tulosta."
 
-#: bambora-payform-embedded-card-payment-gateway.php:416
+#: bambora-payform-embedded-card-payment-gateway.php:406
 msgid ""
 "Bambora PayForm (Embedded Card) system is currently in maintenance. Please "
 "try again in a few minutes."
@@ -245,63 +237,63 @@ msgstr ""
 "Bambora PayForm maksujärjestelmä on huoltotilassa. Yritä maksamista hetken "
 "kuluttua uudelleen."
 
-#: bambora-payform-embedded-card-payment-gateway.php:423
-#: bambora-payform-embedded-card-payment-gateway.php:438
+#: bambora-payform-embedded-card-payment-gateway.php:413
+#: bambora-payform-embedded-card-payment-gateway.php:428
 msgid "Payment failed due to an error."
 msgstr "Maksu epäonnistui - Tapahtui virhe."
 
-#: bambora-payform-embedded-card-payment-gateway.php:518
+#: bambora-payform-embedded-card-payment-gateway.php:517
 msgid "Payment method: Card payment"
 msgstr "Maksutapa: Korttimaksu"
 
-#: bambora-payform-embedded-card-payment-gateway.php:519
+#: bambora-payform-embedded-card-payment-gateway.php:518
 msgid "Card payment info: "
 msgstr "Korttimaksun lisätiedot: "
 
-#: bambora-payform-embedded-card-payment-gateway.php:524
+#: bambora-payform-embedded-card-payment-gateway.php:523
 msgid "Verified: "
 msgstr "Varmennus: "
 
-#: bambora-payform-embedded-card-payment-gateway.php:527
+#: bambora-payform-embedded-card-payment-gateway.php:526
 msgid "Card country: "
 msgstr "Kortin maakoodi: "
 
-#: bambora-payform-embedded-card-payment-gateway.php:528
+#: bambora-payform-embedded-card-payment-gateway.php:527
 msgid "Client IP country: "
 msgstr "Asiakkaan IP:n maakoodi: "
 
-#: bambora-payform-embedded-card-payment-gateway.php:533
+#: bambora-payform-embedded-card-payment-gateway.php:532
 msgid "Error: "
 msgstr "Virhe: "
 
-#: bambora-payform-embedded-card-payment-gateway.php:538
+#: bambora-payform-embedded-card-payment-gateway.php:537
 msgid "Payment method: "
 msgstr "Valittu maksutapa: "
 
-#: bambora-payform-embedded-card-payment-gateway.php:550
-#: bambora-payform-embedded-card-payment-gateway.php:825
+#: bambora-payform-embedded-card-payment-gateway.php:549
+#: bambora-payform-embedded-card-payment-gateway.php:823
 msgid "Payment is authorized. Use settle option to capture funds."
 msgstr ""
 "Maksu varmennettu. Maksu veloitetaan painamalla Veloita maksu -painiketta."
 
-#: bambora-payform-embedded-card-payment-gateway.php:552
-#: bambora-payform-embedded-card-payment-gateway.php:827
+#: bambora-payform-embedded-card-payment-gateway.php:551
+#: bambora-payform-embedded-card-payment-gateway.php:825
 msgid "Payment accepted."
 msgstr "Maksu hyväksytty"
 
-#: bambora-payform-embedded-card-payment-gateway.php:561
+#: bambora-payform-embedded-card-payment-gateway.php:560
 msgid "Card token: "
 msgstr "Korttitokeni:"
 
-#: bambora-payform-embedded-card-payment-gateway.php:562
+#: bambora-payform-embedded-card-payment-gateway.php:561
 msgid "Expiration: "
 msgstr "Erääntyminen:"
 
-#: bambora-payform-embedded-card-payment-gateway.php:587
+#: bambora-payform-embedded-card-payment-gateway.php:586
 msgid "Payment was not accepted."
 msgstr "Maksu epäonnistui tai se keskeytettiin."
 
-#: bambora-payform-embedded-card-payment-gateway.php:595
+#: bambora-payform-embedded-card-payment-gateway.php:594
 msgid ""
 "Transaction status could not be updated after customer returned from the web "
 "page of a bank. Please use the merchant UI to resolve the payment status."
@@ -309,27 +301,27 @@ msgstr ""
 "Maksun tilaa ei voitu varmentaa asiakkaan palattua palveluumme "
 "verkkopankista. Käytä PayFormin kauppiasportaalia selvittääksesi maksun tila."
 
-#: bambora-payform-embedded-card-payment-gateway.php:603
+#: bambora-payform-embedded-card-payment-gateway.php:602
 msgid ""
 "Maintenance break. The transaction is not created and the user has been "
 "notified and transferred back to the cancel address."
 msgstr "Huoltotauko. Maksua ei luotu, ja asiakaalle on ilmoitettu asiasta."
 
-#: bambora-payform-embedded-card-payment-gateway.php:630
+#: bambora-payform-embedded-card-payment-gateway.php:629
 msgid "Card payment failed. Your card has not been charged."
 msgstr ""
 "Korttimaksun veloitus epäonnistui. Yrittäkää maksamista uudelleen tai "
 "valitkaa jokin toinen maksutapa."
 
-#: bambora-payform-embedded-card-payment-gateway.php:632
+#: bambora-payform-embedded-card-payment-gateway.php:631
 msgid "Payment was canceled or charge was not accepted."
 msgstr "Maksu keskeytettiin tai maksun veloitus epäonnistui."
 
-#: bambora-payform-embedded-card-payment-gateway.php:661
+#: bambora-payform-embedded-card-payment-gateway.php:660
 msgid "The card is reported lost or stolen."
 msgstr "Kortti on ilmoitettu kadonneeksi tai varastetuksi."
 
-#: bambora-payform-embedded-card-payment-gateway.php:663
+#: bambora-payform-embedded-card-payment-gateway.php:662
 msgid ""
 "General decline. The card holder should contact the issuer to find out why "
 "the payment failed."
@@ -337,7 +329,7 @@ msgstr ""
 "Yleinen hylkäys. Kortinhaltijan tulisi ottaa yhteyttä kortinmyöntäjään "
 "selvittääkseen miksi maksu epäonnistui."
 
-#: bambora-payform-embedded-card-payment-gateway.php:665
+#: bambora-payform-embedded-card-payment-gateway.php:664
 msgid ""
 "Insufficient funds. The card holder should verify that there is balance on "
 "the account and the online payments are actived."
@@ -345,15 +337,15 @@ msgstr ""
 "Riittämättömät varat. Kortinhaltijan tulisi tarkistaa, että kortilla on "
 "katetta ja verkkomaksaminen on aktivoitu kortille."
 
-#: bambora-payform-embedded-card-payment-gateway.php:667
+#: bambora-payform-embedded-card-payment-gateway.php:666
 msgid "Expired card."
 msgstr "Vanhentunut kortti."
 
-#: bambora-payform-embedded-card-payment-gateway.php:669
+#: bambora-payform-embedded-card-payment-gateway.php:668
 msgid "Withdrawal amount limit exceeded."
 msgstr "Kortin maksuraja ylittyi."
 
-#: bambora-payform-embedded-card-payment-gateway.php:671
+#: bambora-payform-embedded-card-payment-gateway.php:670
 msgid ""
 "Restricted card. The card holder should verify that the online payments are "
 "actived."
@@ -361,22 +353,22 @@ msgstr ""
 "Rajoitettu kortti. Kortinhaltijan tulisi varmistaa, että verkkomaksaminen on "
 "aktivoitu kortille."
 
-#: bambora-payform-embedded-card-payment-gateway.php:673
+#: bambora-payform-embedded-card-payment-gateway.php:672
 msgid ""
 "Timeout communicating with the acquirer. The payment should be tried again "
 "later."
 msgstr ""
 "Yhteysongelma korttimaksujen prosessoijaan. Maksua tulisi yrittää uudelleen."
 
-#: bambora-payform-embedded-card-payment-gateway.php:684
+#: bambora-payform-embedded-card-payment-gateway.php:683
 msgid "3-D Secure was used."
 msgstr "3-D Secure varmennettu tapahtuma."
 
-#: bambora-payform-embedded-card-payment-gateway.php:686
+#: bambora-payform-embedded-card-payment-gateway.php:685
 msgid "3-D Secure was not used."
 msgstr "3-D Secure varmennusta ei käytetty."
 
-#: bambora-payform-embedded-card-payment-gateway.php:688
+#: bambora-payform-embedded-card-payment-gateway.php:687
 msgid ""
 "3-D Secure was attempted but not supported by the card issuer or the card "
 "holder is not participating."
@@ -384,23 +376,23 @@ msgstr ""
 "3-D Secure varmennusta yritettiin, mutta kortinmyöntäjä tai -haltija ei "
 "käytä varmennusta."
 
-#: bambora-payform-embedded-card-payment-gateway.php:713
+#: bambora-payform-embedded-card-payment-gateway.php:712
 msgid "Payment settled."
 msgstr "Maksu veloitettu."
 
-#: bambora-payform-embedded-card-payment-gateway.php:731
+#: bambora-payform-embedded-card-payment-gateway.php:730
 msgid "Settle payment"
 msgstr "Veloita maksu"
 
-#: bambora-payform-embedded-card-payment-gateway.php:755
+#: bambora-payform-embedded-card-payment-gateway.php:754
 msgid "Settlement was successful."
 msgstr "Maksu veloitettiin onnistuneesti."
 
-#: bambora-payform-embedded-card-payment-gateway.php:758
+#: bambora-payform-embedded-card-payment-gateway.php:757
 msgid "Settlement failed. Validation failed."
 msgstr "Veloitus epäonnistui. Validointi epäonnistui."
 
-#: bambora-payform-embedded-card-payment-gateway.php:761
+#: bambora-payform-embedded-card-payment-gateway.php:760
 msgid ""
 "Settlement failed. Either the payment has already been settled or the "
 "payment gateway refused to settle payment for given transaction."
@@ -408,47 +400,47 @@ msgstr ""
 "Maksua ei voitu veloittaa. Joko maksu on jo veloitettu, tai luottolaitos "
 "hylkäsi veloituspyynnön"
 
-#: bambora-payform-embedded-card-payment-gateway.php:764
+#: bambora-payform-embedded-card-payment-gateway.php:763
 msgid "Settlement failed. Unkown error."
 msgstr ""
 "Tuntematon paluuarvo. Mikäli ongelma toistuu, ota yhteyttä "
 "asiakaspalveluumme."
 
-#: bambora-payform-embedded-card-payment-gateway.php:771
+#: bambora-payform-embedded-card-payment-gateway.php:770
 msgid "Exception, error: "
 msgstr "Exception, virhe: "
 
+#: bambora-payform-embedded-card-payment-gateway.php:823
 #: bambora-payform-embedded-card-payment-gateway.php:825
-#: bambora-payform-embedded-card-payment-gateway.php:827
 msgid "Bambora PayForm (Embedded Card, Subscription) order"
 msgstr "Bambora PayForm (Upotettu korttimaksaminen, Subscription) tilaus"
 
-#: bambora-payform-embedded-card-payment-gateway.php:835
+#: bambora-payform-embedded-card-payment-gateway.php:833
 msgid "Duplicate order number."
 msgstr "Duplikaatti tilausnumero"
 
-#: bambora-payform-embedded-card-payment-gateway.php:839
+#: bambora-payform-embedded-card-payment-gateway.php:837
 msgid "Card token not found."
 msgstr "Korttitokenia ei löytynyt."
 
-#: bambora-payform-embedded-card-payment-gateway.php:864
+#: bambora-payform-embedded-card-payment-gateway.php:862
 msgid "Payment failed. The card was not charged. Error: "
 msgstr "Maksu epäonnistui. Korttia ei veloitettu. Virhe: "
 
-#: bambora-payform-embedded-card-payment-gateway.php:864
+#: bambora-payform-embedded-card-payment-gateway.php:862
 msgid "Payment failed. The card was not charged."
 msgstr "Maksu epäonnistui. Korttia ei veloitettu."
 
-#: bambora-payform-embedded-card-payment-gateway.php:873
+#: bambora-payform-embedded-card-payment-gateway.php:871
 msgid "Payment failed. Exception: "
 msgstr "Maksu epäonnistui. Exception: "
 
-#: bambora-payform-embedded-card-payment-gateway.php:913
+#: bambora-payform-embedded-card-payment-gateway.php:909
 #, php-format
 msgid "Failed to delete the card token %s. Return code: %s"
 msgstr "Korttitokenin %s poisto epäonnistui. Paluukoodi: %s"
 
-#: bambora-payform-embedded-card-payment-gateway.php:918
+#: bambora-payform-embedded-card-payment-gateway.php:914
 #, php-format
 msgid "Failed to delete the card token %s. Exception: %s"
 msgstr "Korttitokenin %s poisto epäonnistui. Execption: %s"
