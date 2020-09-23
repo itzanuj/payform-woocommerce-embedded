@@ -3,12 +3,12 @@ Contributors: hsuvant
 Donate link: 
 Tags: payment gateway, bambora, payform, verkkomaksut, pankit
 Requires at least: 3.3
-Tested up to: 5.2.4
+Tested up to: 5.5
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 WC requires at least: 3.0.0
-WC tested up to: 3.8.0
+WC tested up to: 4.5.2
 
 Bambora PayForm plugin for Woocommerce.
 

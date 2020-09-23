@@ -3,13 +3,13 @@
  * Plugin Name: Bambora PayForm Embedded Card Payment Gateway
  * Plugin URI: https://payform.bambora.com/docs
  * Description: Bambora PayForm Payment Gateway Embedded Card Integration for Woocommerce
- * Version: 1.3.1
+ * Version: 1.4.0
  * Author: Bambora
  * Author URI: https://www.bambora.com/fi/fi/Verkkokauppa/Payform/
  * Text Domain: bambora-payform-embedded-card-payment-gateway
  * Domain Path: /languages
  * WC requires at least: 3.0.0
- * WC tested up to: 3.8.0
+ * WC tested up to: 4.5.2
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -101,7 +101,7 @@ function init_bambora_payform_embedded_card_gateway()
 		}
 
 		public function is_valid_currency()
-		{	
+		{
 			return in_array(get_woocommerce_currency(), array('EUR'));
 		}
 
@@ -224,7 +224,7 @@ function init_bambora_payform_embedded_card_gateway()
 			$img_url = untrailingslashit(plugins_url(basename(plugin_dir_path(__FILE__)), basename(__FILE__))) . '/assets/images/';
 			$clear_both = '<div style="display: block; clear: both;"></div>';
 
-			echo '<div id="bambora-payform-embedded-card-payment-content">'.wpautop(wptexturize(__( 'Payment card', 'bambora-payform-embedded-card-payment-gateway' ))) . "<div id='pf-cc-form'><iframe frameBorder='0' scrolling='no' id='pf-cc-iframe' height='220px' style='width:100%' src='https://payform.bambora.com/e-payments/embedded_card_form?lang=".$this->get_lang()."'></iframe></div>" . $clear_both;
+			echo '<div id="bambora-payform-embedded-card-payment-content">'.wpautop(wptexturize(__( 'Payment card', 'bambora-payform-embedded-card-payment-gateway' ))) . "<div id='pf-cc-form'><iframe frameBorder='0' scrolling='no' id='pf-cc-iframe' class='intrinsic-ignore' height='220px' style='width:100%' src='https://payform.bambora.com/e-payments/embedded_card_form?lang=".$this->get_lang()."'></iframe></div>" . $clear_both;
 
 			if($this->visa_logo === 'yes' || $this->mc_logo === 'yes' || $this->amex_logo === 'yes' || $this->diners_logo === 'yes')
 			{
@@ -392,6 +392,10 @@ function init_bambora_payform_embedded_card_gateway()
 					$order->add_order_note($order_number_text);
 
 					$order->update_meta_data('bambora_payform_embedded_card_order_number', $order_number);
+					$order_numbers = get_post_meta($order_id, 'bambora_payform_embedded_card_order_numbers', true);
+					$order_numbers = ($order_numbers) ? array_values($order_numbers) : array();
+					$order_numbers[] = $order_number;
+					$order->update_meta_data('bambora_payform_embedded_card_order_numbers', $order_numbers);
 					$order->save();
 					
 					if(!in_array($this->cancel_url, array('order_new_cart', 'order_new_checkout')))
@@ -444,7 +448,16 @@ function init_bambora_payform_embedded_card_gateway()
 		protected function get_order_by_id_and_order_number($order_id, $order_number)
 		{
 			$order = New WC_Order($order_id);
-			if($order_number == get_post_meta($order_id, 'bambora_payform_embedded_card_order_number', true ))
+
+			$order_numbers = get_post_meta($order_id, 'bambora_payform_embedded_card_order_numbers', true);
+
+			if(!$order_numbers)
+			{
+				$current_order_number = get_post_meta($order_id, 'bambora_payform_embedded_card_order_number', true);
+				$order_numbers = array($current_order_number);
+			}
+
+			if(in_array($order_number, $order_numbers, true));
 				return $order;
 
 			return null;
@@ -467,8 +480,6 @@ function init_bambora_payform_embedded_card_gateway()
 				$contact_id = isset($_GET['CONTACT_ID']) ? sanitize_text_field($_GET['CONTACT_ID']) : null;
 				$order_number = isset($_GET['ORDER_NUMBER']) ? $this->sanitize_payform_order_number($_GET['ORDER_NUMBER']) : null;
 
-				$this->logger->add( 'bambora-payform-embedded-card-payment-gateway', 'Order number: ' . $order_number);
-
 				$authcode_confirm = $return_code .'|'. $order_number;
 
 				if(isset($return_code) && $return_code == 0)
@@ -485,14 +496,12 @@ function init_bambora_payform_embedded_card_gateway()
 				$order_id = isset($_GET['order_id']) ? sanitize_text_field($_GET['order_id']) : null;
 				
 				if($order_id === null || $order_number === null)
-					die ("No order_id nor order_number given.");
+					$this->bambora_payform_embedded_die("No order_id nor order_number given.");
 
 				$order = $this->get_order_by_id_and_order_number($order_id, $order_number);
 				
 				if($order === null)
-					die ("Order not found.");
-
-				$mk_on = get_post_meta($order_id, 'bambora_payform_embedded_card_order_number', true );
+					$this->bambora_payform_embedded_die("Order not found.");
 
 				$wc_order_id = $order->get_id();
 				$wc_order_status = $order->get_status();
@@ -501,17 +510,14 @@ function init_bambora_payform_embedded_card_gateway()
 				{
 					$current_return_code = get_post_meta($wc_order_id, 'bambora_payform_embedded_card_return_code', true);
 
-					if($wc_order_status != 'processing' && $current_return_code != 0)
+					if(!$order->is_paid() && $current_return_code != 0)
 					{
 						$pbw_extra_info = '';
-
-						$order->update_meta_data('bambora_payform_embedded_card_return_code', $return_code);
-						$order->save();
 
 						$payment = new Bambora\PayForm($this->api_key, $this->private_key, 'w3.1', new Bambora\PayFormWPConnector());
 						try
 						{
-							$result = $payment->checkStatusWithOrderNumber($mk_on);
+							$result = $payment->checkStatusWithOrderNumber($order_number);
 							if(isset($result->source->object) && $result->source->object === 'card')
 							{
 								$pbw_extra_info .=  "<br>-<br>" . __('Payment method: Card payment', 'bambora-payform-embedded-card-payment-gateway') . "<br>";
@@ -546,11 +552,13 @@ function init_bambora_payform_embedded_card_gateway()
 						{
 							case 0:
 								if($settled == 0)
-									$pbw_note = __('Bambora PayForm (Embedded Card) order', 'bambora-payform-embedded-card-payment-gateway') . ' ' . $mk_on . "<br>-<br>" . __('Payment is authorized. Use settle option to capture funds.', 'bambora-payform-embedded-card-payment-gateway') . "<br>";
+									$pbw_note = __('Bambora PayForm (Embedded Card) order', 'bambora-payform-embedded-card-payment-gateway') . ' ' . $order_number . "<br>-<br>" . __('Payment is authorized. Use settle option to capture funds.', 'bambora-payform-embedded-card-payment-gateway') . "<br>";
 								else
-									$pbw_note = __('Bambora PayForm (Embedded Card) order', 'bambora-payform-embedded-card-payment-gateway') . ' ' . $mk_on . "<br>-<br>" . __('Payment accepted.', 'bambora-payform-embedded-card-payment-gateway') . "<br>";
+									$pbw_note = __('Bambora PayForm (Embedded Card) order', 'bambora-payform-embedded-card-payment-gateway') . ' ' . $order_number . "<br>-<br>" . __('Payment accepted.', 'bambora-payform-embedded-card-payment-gateway') . "<br>";
 
-								$order->update_meta_data('bambora_payform_embedded_card_is_settled', $settled);
+								$is_settled = ($settled == 0) ? 0 : 1;
+								$order->update_meta_data('bambora_payform_embedded_card_order_number', $order_number);
+								$order->update_meta_data('bambora_payform_embedded_card_is_settled', $is_settled);
 								$order->save();
 
 								if(isset($result->source->card_token))
@@ -606,10 +614,13 @@ function init_bambora_payform_embedded_card_gateway()
 									$order->update_status('failed', $note);
 								break;
 						}
+
+						$order->update_meta_data('bambora_payform_embedded_card_return_code', $return_code);
+						$order->save();
 					}
 				}
 				else
-					die ("MAC check failed");
+					$this->bambora_payform_embedded_die("MAC check failed");
 
 				$cancel_url_option = $this->get_option('cancel_url', '');
 				$card = ($result->source->object === 'card') ? true : false;
@@ -770,6 +781,15 @@ function init_bambora_payform_embedded_card_gateway()
 				$settlement_msg = __('Exception, error: ', 'bambora-payform-embedded-card-payment-gateway') . $message;
 			}
 			return $successful;
+		}
+
+		public function bambora_payform_embedded_die($msg = '')
+		{
+			$logger = new WC_Logger();
+			$logger->add( 'bambora-payform-embedded-card-payment-gateway', 'Bambora PayForm Embedded - return failed. Error: ' . $msg);
+			status_header(400);
+			nocache_headers();
+			die($msg);
 		}
 
 		public function scheduled_subscription_payment( $amount_to_charge, $order)
@@ -969,7 +989,7 @@ function init_bambora_payform_embedded_card_gateway()
 				array_push($products, $product);				
 			}
 
-			if($total_amount == $amount)
+			if(abs($total_amount - $amount) < 3)
 			{
 				foreach($products as $product)
 				{
